@@ -5,40 +5,52 @@ import styles from './App.css'
 
 export const App: React.FC = () => {
     const [sum, setSum] = React.useState<number>(0)
-    let [japanese, setJapanese] = React.useState<number>(0)
-    let [mass, setMass] = React.useState<number>(0)
-    let [english, setEnglish] = React.useState<number>(0)
+    const [japanese, setJapanese] = React.useState<number>(0)
+    const [mass, setMass] = React.useState<number>(0)
+    const [english, setEnglish] = React.useState<number>(0)
+    const [rank, setRank] = React.useState<string>('Null')
     return (
         <div>
+            <p>
             国語：
             <input onChange={
                 (event: React.ChangeEvent<HTMLInputElement>) => {
                     setJapanese(Number(event.target.value))
                 }
             } />
-            点　数学：
-            <input onChange={
-                (event: React.ChangeEvent<HTMLInputElement>) => {
-                    setMass(Number(event.target.value))
-                }
-            } />
-            点　英語：
-            <input onChange={
-                (event: React.ChangeEvent<HTMLInputElement>) => {
-                    setEnglish(Number(event.target.value))
-                }
-            } />
             点
-            <button
-                className={styles.btn}
-                onClick={() => {
-                    setSum(japanese + mass + english)
-                }}
-            >
-                計算
+            </p>
+            <p>
+                数学：
+                <input onChange={
+                    (event: React.ChangeEvent<HTMLInputElement>) => {
+                        setMass(Number(event.target.value))
+                    }
+                } />
+            点
+            </p>
+            <p>
+                英語：
+                <input onChange={
+                    (event: React.ChangeEvent<HTMLInputElement>) => {
+                        setEnglish(Number(event.target.value))
+                    }
+                } />
+            点
+            </p>
+            <p>
+                <button
+                    className={styles.btn}
+                    onClick={() => {
+                        setSum(japanese + mass + english)
+                        {/* 最初は正しく出ない */}
+                        setRank(sum >= 200 ? 'A' : 'B')
+                    }}
+                >
+                    計算
                 </button>
-            <p>合計 {sum}点</p>
-
+            </p>
+            <p>合計 {sum}点　ランク{rank}</p>
 
         </div>
     )
