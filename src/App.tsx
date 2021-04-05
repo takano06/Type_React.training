@@ -3,55 +3,50 @@ import { ImportsNotUsedAsValues } from 'typescript'
 
 import styles from './App.css'
 
+const Todos = (props) => {
+    const listItems = props.todos.map((item, index) =>
+        <li key={index}>{item}</li>
+        )
+        return (
+            <ul>{listItems}</ul>
+        )
+}
+
 export const App: React.FC = () => {
-    <div>
-        
-        <h1　style="text-align:center">todos</h1>
-        
-    </div>
 
+    const [todos,setTodos]　= React.useState<string[]>([])
+    const [newTodo, setNewTodo] = React.useState<string>()
 
-    {/*
-    const [sum, setSum] = React.useState<number>(0)
-    const [japanese, setJapanese] = React.useState<number>(0)
-    const [mass, setMass] = React.useState<number>(0)
-    const [english, setEnglish] = React.useState<number>(0)
-    const [rank, setRank] = React.useState<string>('Null')
+    const [test, setTest] = React.useState<string>()
+
     return (
         <div>
-            <p>
-            国語：
-            <input onChange={
-                (event: React.ChangeEvent<HTMLInputElement>) => {
-                    setJapanese(Number(event.target.value))
+            <h1 className={styles.title}>todos</h1>
+
+            <input type="text" 
+                value={newTodo}
+                onKeyDown={(event)=>{
+                    if(event.keyCode===13){
+                        setTodos(([...todos, newTodo]))
+                    }
+                                    }}
+                        onChange={(event) =>{
+                    setNewTodo(event.target.value)
                 }
-            } />
-            点
-            </p>
+            }/>
             <p>
-                数学：
-                <input onChange={
-                    (event: React.ChangeEvent<HTMLInputElement>) => {
-                        setMass(Number(event.target.value))
-                    }
-                } />
-            点
+                テスト{test}
+                
+                <Todos todos={todos}/>
             </p>
-            <p>
-                英語：
-                <input onChange={
-                    (event: React.ChangeEvent<HTMLInputElement>) => {
-                        setEnglish(Number(event.target.value))
-                    }
-                } />
-            点
-            </p>
+           
+           {/*
             <p>
                 <button
                     className={styles.btn}
                     onClick={() => {
                         setSum(japanese + mass + english)
-                        
+                        {/* 最初は正しく出ない 
                         setRank(sum >= 200 ? 'A' : 'B')
                     }}
                 >
@@ -59,7 +54,9 @@ export const App: React.FC = () => {
                 </button>
             </p>
             <p>合計 {sum}点　ランク{rank}</p>
+
+                */}
+
         </div>
     )
-                */}
 }
