@@ -4,6 +4,14 @@ import { ImportsNotUsedAsValues } from 'typescript'
 import styles from './App.css'
 
 export const App: React.FC = () => {
+    <div>
+        
+        <h1　style="text-align:center">todos</h1>
+        
+    </div>
+
+
+    {/*
     const [sum, setSum] = React.useState<number>(0)
     const [japanese, setJapanese] = React.useState<number>(0)
     const [mass, setMass] = React.useState<number>(0)
@@ -43,7 +51,7 @@ export const App: React.FC = () => {
                     className={styles.btn}
                     onClick={() => {
                         setSum(japanese + mass + english)
-                        {/* 最初は正しく出ない */}
+                        
                         setRank(sum >= 200 ? 'A' : 'B')
                     }}
                 >
@@ -51,7 +59,7 @@ export const App: React.FC = () => {
                 </button>
             </p>
             <p>合計 {sum}点　ランク{rank}</p>
-
         </div>
     )
+                */}
 }
