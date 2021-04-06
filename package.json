@@ -4,6 +4,9 @@
   "main": "index.js",
   "author": "takano <kotone.takano@glucose.jp>",
   "license": "MIT",
+  "scripts": {
+    "dev": "webpack serve"
+  },
   "dependencies": {
     "@babel/cli": "^7.13.14",
     "@babel/core": "^7.13.14",
