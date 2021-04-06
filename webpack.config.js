@@ -1,5 +1,7 @@
 const path = require('path')
 
+const outputPath = path.resolve(__dirname, 'dist/')
+
 module.exports = {
   entry: './src/index.tsx',
   module: {
@@ -24,11 +26,13 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.ts','.tsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   output: {
-    path: path.resolve(__dirname, 'dist/'),
-    publicPath: '/dist/',
+    path: outputPath,
     filename: 'main.js',
+  },
+  devServer: {
+    contentBase: outputPath,
   },
 }
