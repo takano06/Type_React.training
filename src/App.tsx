@@ -19,6 +19,8 @@ export const App: React.FC = () => {
     const [todoCount, setTodoCount] = React.useState<number>(0)
     const [todoStatus, setTodoStatus] = React.useState<string>('all')
 
+    const reversedTodos = [...displayTodos].sort((a,b)=>a.id-b.id)
+
     return (
         <div>
             <h1 className={styles.title}>todos</h1>
@@ -48,7 +50,7 @@ export const App: React.FC = () => {
                 </p>
                     
             <ul className={styles.center}>
-                {displayTodos.map((todo: Todo) => (
+                {reversedTodos.map((todo: Todo) => (
                     <p key={todo.id}>
                         <input type='checkbox' 
                         defaultChecked={todo.check}
