@@ -23,50 +23,55 @@ export const App: React.FC = () => {
         <div>
             <h1 className={styles.title}>todos</h1>
                 <p className={styles.center}>
-                    <input type='text' className={styles.input}
-                        value={newTodo.todoText}
-                        onKeyDown={(event) => {
-                            if (event.keyCode === 13) {
-                                setTodos(([...todos, newTodo]))
-                                if(todoStatus !== 'completed'){
-                                    setDisplayTodos(([...displayTodos, newTodo]))
-                                }
-                                setNewTodo({ todoText: '', check: false, id: 0 })
-                                setTodoCount(todoCount + 1)
-                            }
-                        }}
-                        onChange={(event) => {
-                            setNewTodo({ todoText: event.target.value, check: false, id: todos.length })
-                        }
-                    } />
-                </p>
+                    <button className={todos.length > 0 ? styles.visible :styles.hidden}
+                    onClick={() =>{
 
+                        todos.map((todo:Todo) =>(
+                            todo.check=!todo.check
+                        ))
+                    }}>✔️</button>
+                    <input type='text' className={styles.input}
+                    value={newTodo.todoText}
+                    onKeyDown={(event) => {
+                        if (event.keyCode === 13) {
+                            setTodos(([...todos, newTodo]))
+                            if(todoStatus !== 'completed'){
+                                setDisplayTodos(([...displayTodos, newTodo]))
+                            }
+                            setNewTodo({ todoText: '', check: false, id: 0 })
+                            setTodoCount(todoCount + 1)
+                        }
+                    }}
+                    onChange={(event) => {
+                        setNewTodo({ todoText: event.target.value, check: false, id: todos.length })
+                    }} />
+                </p>
+                    
             <ul className={styles.center}>
                 {displayTodos.map((todo: Todo) => (
                     <p key={todo.id}>
                         <input type='checkbox' 
-                            defaultChecked={todo.check}
-                            onChange={(event) => {
-                                todo.check = event.target.checked
-                                if (!todo.check) {
-                                    setTodoCount(todoCount + 1)
-                                } else {
-                                    setTodoCount(todoCount - 1)
-                                }
-                            }} />
+                        defaultChecked={todo.check}
+                        onChange={(event) => {
+                            todo.check = event.target.checked
+                            if (!todo.check) {
+                                setTodoCount(todoCount + 1)
+                            } else {
+                                setTodoCount(todoCount - 1)
+                            }}} />
                         <input type='text'
-                            defaultValue={todo.todoText}
-                            onChange={(event) => {
-                                todo.todoText = event.target.value
-                            }} />
+                        defaultValue={todo.todoText}
+                        onChange={(event) => {
+                            todo.todoText = event.target.value
+                        }} />
                         <button
-                            className={styles.btn}
-                            onClick={()=>{
-                                setTodos(todos.filter(item => item.id !== todo.id))
-                                setDisplayTodos(displayTodos.filter(item => item.id !== todo.id))
-                                setTodoCount(todoCount-1)
-                            }}>
-                                ×
+                        className={styles.btn}
+                        onClick={()=>{
+                            setTodos(todos.filter(item => item.id !== todo.id))
+                            setDisplayTodos(displayTodos.filter(item => item.id !== todo.id))
+                            setTodoCount(todoCount-1)
+                        }}>
+                            ×
                         </button>
                     </p>
                 ))}
@@ -98,7 +103,8 @@ export const App: React.FC = () => {
                 }}>
                     Completed
                 </button>
-                <button onClick={()=>{
+                <button className={todos.length > todoCount ? styles.visible : styles.hidden}
+                onClick={()=>{
                     setTodos(todos.filter(item => item.check !== true))
                     setDisplayTodos(displayTodos.filter(item => item.check !== true))
                 }}>

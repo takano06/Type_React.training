@@ -25,3 +25,11 @@
     background-color: white;
     outline: 0;
 }
+
+.visible{
+    visibility: visible;
+}
+
+.hidden{
+    visibility: hidden;
+}
