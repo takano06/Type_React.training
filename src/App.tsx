@@ -29,7 +29,7 @@ export const App: React.FC = () => {
                             if (event.keyCode === 13) {
                                 setTodos(([...todos, newTodo]))
                                 if(todoStatus !== 'completed'){
-                                    setDisplayTodos(todos)
+                                    setDisplayTodos(([...displayTodos, newTodo]))
                                 }
                                 setNewTodo({ todoText: '', check: false, id: 0 })
                                 setTodoCount(todoCount + 1)
@@ -45,6 +45,7 @@ export const App: React.FC = () => {
                 {displayTodos.map((todo: Todo) => (
                     <p key={todo.id}>
                         <input type='checkbox' 
+                            defaultChecked={todo.check}
                             onChange={(event) => {
                                 todo.check = event.target.checked
                                 if (!todo.check) {
@@ -54,7 +55,7 @@ export const App: React.FC = () => {
                                 }
                             }} />
                         <input type='text'
-                            value={todo.todoText}
+                            defaultValue={todo.todoText}
                             onChange={(event) => {
                                 todo.todoText = event.target.value
                             }} />
@@ -99,12 +100,7 @@ export const App: React.FC = () => {
                 </button>
                 <button onClick={()=>{
                     setTodos(todos.filter(item => item.check !== true))
-                    if(todoStatus === 'all'){
-                        setDisplayTodos(todos)
-                    }
-                    if(todoStatus === 'completed'){
-                        setDisplayTodos([])
-                    }
+                    setDisplayTodos(displayTodos.filter(item => item.check !== true))
                 }}>
                     Clear completed
                 </button>
