@@ -1,5 +1,6 @@
 .btn {
     color:red;
+    background-color: white;
 }
 .title{
     color:bisque;
@@ -13,4 +14,13 @@
     font-size: large;
 }
 .list{
+}
+.sttsActive{
+    border-color: tomato;
+    background-color: white;
+    outline: 0;
+}
+.notSttsActive{
+    background-color: white;
+    outline: 0;
 }

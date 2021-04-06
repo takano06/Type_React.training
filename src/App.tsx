@@ -3,7 +3,7 @@ import { ImportsNotUsedAsValues } from 'typescript'
 
 import styles from './App.css'
 
-interface Todo {
+type Todo　= {
     todoText: string
     check: boolean
     id: number
@@ -12,20 +12,26 @@ interface Todo {
 export const App: React.FC = () => {
 
     const [todos, setTodos] = React.useState<Todo[]>([])
-    const [newTodo, setNewTodo] = React.useState<Todo>({ todoText: "", check: false, id: 0 })
+    const [newTodo, setNewTodo] = React.useState<Todo>({ todoText: '', check: false, id: 0 })
+
+    const [displayTodos, setDisplayTodos] = React.useState<Todo[]>([])
 
     const [todoCount, setTodoCount] = React.useState<number>(0)
+    const [todoStatus, setTodoStatus] = React.useState<string>('all')
 
     return (
         <div>
             <h1 className={styles.title}>todos</h1>
                 <p className={styles.center}>
-                    <input type="text" className={styles.input}
+                    <input type='text' className={styles.input}
                         value={newTodo.todoText}
                         onKeyDown={(event) => {
                             if (event.keyCode === 13) {
                                 setTodos(([...todos, newTodo]))
-                                setNewTodo({ todoText: "", check: false, id: 0 })
+                                if(todoStatus !== 'completed'){
+                                    setDisplayTodos(todos)
+                                }
+                                setNewTodo({ todoText: '', check: false, id: 0 })
                                 setTodoCount(todoCount + 1)
                             }
                         }}
@@ -36,9 +42,9 @@ export const App: React.FC = () => {
                 </p>
 
             <ul className={styles.center}>
-                {todos.map((todo: Todo) => (
-                    <p>
-                        <input type="checkbox" key={todo.id}
+                {displayTodos.map((todo: Todo) => (
+                    <p key={todo.id}>
+                        <input type='checkbox' 
                             onChange={(event) => {
                                 todo.check = event.target.checked
                                 if (!todo.check) {
@@ -47,7 +53,7 @@ export const App: React.FC = () => {
                                     setTodoCount(todoCount - 1)
                                 }
                             }} />
-                        <input type="text" key={todo.id}
+                        <input type='text'
                             value={todo.todoText}
                             onChange={(event) => {
                                 todo.todoText = event.target.value
@@ -63,9 +69,38 @@ export const App: React.FC = () => {
                     </p>
                 ))}
             </ul>
-            <p>
-                {todoCount} item left
+            <p className={styles.center}>
+                {todoCount} item left  
 
+                <button 
+                className={todoStatus === 'all' ? styles.sttsActive : styles.notSttsActive}
+                onClick={()=>{
+                    setTodoStatus('all')
+                    setDisplayTodos(todos)
+                }}>
+                    All
+                </button>
+                <button
+                className={todoStatus === 'active' ? styles.sttsActive : styles.notSttsActive}
+                onClick={()=>{
+                    setTodoStatus('active')
+                    setDisplayTodos(todos.filter(item => item.check !==true))
+                }}>
+                    Active
+                </button>
+                <button
+                className={todoStatus === 'completed' ? styles.sttsActive : styles.notSttsActive}
+                onClick={()=>{
+                    setTodoStatus('completed')
+                    setDisplayTodos(todos.filter(item => item.check !==false))
+                }}>
+                    Completed
+                </button>
+                <button onClick={()=>{
+                    setTodos(todos.filter(item => item.check !== true))
+                }}>
+                    Clear completed
+                </button>
             </p>
         </div>
     )
