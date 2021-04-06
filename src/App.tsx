@@ -27,10 +27,8 @@ export const App: React.FC = () => {
                 <p className={styles.center}>
                     <button className={todos.length > 0 ? styles.visible :styles.hidden}
                     onClick={() =>{
-
-                        todos.map((todo:Todo) =>(
-                            todo.check=!todo.check
-                        ))
+                        if(todos.indexOf)
+                        todos.map((todo:Todo) =>(todo.check = !todo.check))
                     }}>✔️</button>
                     <input type='text' className={styles.input}
                     value={newTodo.todoText}
