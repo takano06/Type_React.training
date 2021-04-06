@@ -62,6 +62,7 @@ export const App: React.FC = () => {
                             className={styles.btn}
                             onClick={()=>{
                                 setTodos(todos.filter(item => item.id !== todo.id))
+                                setDisplayTodos(displayTodos.filter(item => item.id !== todo.id))
                                 setTodoCount(todoCount-1)
                             }}>
                                 ×
@@ -98,6 +99,12 @@ export const App: React.FC = () => {
                 </button>
                 <button onClick={()=>{
                     setTodos(todos.filter(item => item.check !== true))
+                    if(todoStatus === 'all'){
+                        setDisplayTodos(todos)
+                    }
+                    if(todoStatus === 'completed'){
+                        setDisplayTodos([])
+                    }
                 }}>
                     Clear completed
                 </button>
