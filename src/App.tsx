@@ -3,60 +3,63 @@ import { ImportsNotUsedAsValues } from 'typescript'
 
 import styles from './App.css'
 
-const Todos = (props) => {
-    const listItems = props.todos.map((item, index) =>
-        <li key={index}>{item}</li>
-        )
-        return (
-            <ul>{listItems}</ul>
-        )
+interface Todo  {
+    todoText:string
+    check:boolean
+    id:number
 }
 
 export const App: React.FC = () => {
 
-    const [todos,setTodos]　= React.useState<string[]>([])
-    const [newTodo, setNewTodo] = React.useState<string>()
+    const [todos,setTodos]　= React.useState<Todo[]>([])
+    const [newTodo, setNewTodo] = React.useState<Todo>()
 
-    const [test, setTest] = React.useState<string>()
+    const [count, setCount]=React.useState<number>(0)
+
+    var SetCount = (c) => {
+        for(let i of todos){
+            if(!i.check){
+                setCount(count+1)
+            }
+        }
+    }
 
     return (
         <div>
             <h1 className={styles.title}>todos</h1>
 
             <input type="text" 
-                value={newTodo}
+                value={newTodo.todoText}
                 onKeyDown={(event)=>{
                     if(event.keyCode===13){
                         setTodos(([...todos, newTodo]))
+                        setNewTodo({todoText:"", check:false, id:0})
                     }
-                                    }}
-                        onChange={(event) =>{
-                    setNewTodo(event.target.value)
+                }}
+                onChange={(event) =>{
+                    setNewTodo({todoText:event.target.value, check:false, id:todos.length})
                 }
             }/>
-            <p>
-                テスト{test}
-                
-                <Todos todos={todos}/>
-            </p>
-           
-           {/*
-            <p>
-                <button
-                    className={styles.btn}
-                    onClick={() => {
-                        setSum(japanese + mass + english)
-                        {/* 最初は正しく出ない 
-                        setRank(sum >= 200 ? 'A' : 'B')
-                    }}
-                >
-                    計算
-                </button>
-            </p>
-            <p>合計 {sum}点　ランク{rank}</p>
 
-                */}
-
+            <ul>
+                {todos.map((todo:Todo) => (
+                    <p>
+                        <input type="checkbox" key={todo.id} 
+                            onChange={(event) =>{
+                                todo.check=event.target.checked
+                                SetCount(todos)
+                            }}/>
+                        <input type="text" key={todo.id} 
+                        value={todo.todoText}
+                        onChange={(event) =>{
+                            todo.todoText=event.target.value
+                        }}/>
+                    </p>
+                ))}
+            </ul>
+            <p>
+                {count} item left
+            </p>
         </div>
     )
 }
