@@ -19,16 +19,30 @@ export const App: React.FC = () => {
     const [todoCount, setTodoCount] = React.useState<number>(0)
     const [todoStatus, setTodoStatus] = React.useState<string>('all')
 
-    const reversedTodos = [...displayTodos].sort((a,b)=>a.id-b.id)
+    const reversedTodos = [...displayTodos].sort((a,b)=>b.id-a.id)
 
+    const isTodosfalse = (ts) => {
+        for(let t of ts){
+            if(!t.check){
+                return true
+            }
+        }
+        return false
+    }
     return (
         <div>
             <h1 className={styles.title}>todos</h1>
                 <p className={styles.center}>
                     <button className={todos.length > 0 ? styles.visible :styles.hidden}
                     onClick={() =>{
-                        if(todos.indexOf)
-                        todos.map((todo:Todo) =>(todo.check = !todo.check))
+                        if(isTodosfalse(todos)){
+                            setTodos(todos.map((todo:Todo) => ({todoText: todo.todoText, check: true, id: todo.id})))
+                            setDisplayTodos(displayTodos.map((todo:Todo) => ({todoText: todo.todoText, check: true, id: todo.id})))
+                        }else{
+                            setTodos(todos.map((todo:Todo) =>({todoText: todo.todoText, check: !todo.check, id: todo.id})))
+                            setDisplayTodos(displayTodos.map((todo:Todo) => ({todoText: todo.todoText, check: !todo.check, id: todo.id})))
+                        }
+
                     }}>✔️</button>
                     <input type='text' className={styles.input}
                     value={newTodo.todoText}
@@ -65,11 +79,13 @@ export const App: React.FC = () => {
                             todo.todoText = event.target.value
                         }} />
                         <button
-                        className={styles.btn}
+                        className={styles.deleteBtn}
                         onClick={()=>{
                             setTodos(todos.filter(item => item.id !== todo.id))
                             setDisplayTodos(displayTodos.filter(item => item.id !== todo.id))
-                            setTodoCount(todoCount-1)
+                            if(!todo.check){
+                                setTodoCount(todoCount-1)
+                            }
                         }}>
                             ×
                         </button>

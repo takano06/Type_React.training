@@ -1,4 +1,4 @@
-.btn {
+.deleteBtn {
     color:red;
     background-color: white;
 }
@@ -13,8 +13,6 @@
 .input{
     font-size: large;
 }
-.list{
-}
 .sttsActive{
     border-color: tomato;
     background-color: white;
@@ -27,6 +25,7 @@
 }
 
 .visible{
+    background-color: white;
     visibility: visible;
 }
 
