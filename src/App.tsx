@@ -14,12 +14,13 @@ export const App: React.FC = () => {
     const [todos, setTodos] = React.useState<Todo[]>([])
     const [newTodo, setNewTodo] = React.useState<Todo>({ todoText: '', check: false, id: 0 })
 
-    const [displayTodos, setDisplayTodos] = React.useState<Todo[]>([])
     const [listTodo, setListTodo] = React.useState<Todo>({ todoText: '', check: false, id: 0 })
 
     const [todoStatus, setTodoStatus] = React.useState<string>('all')
 
-    const reversedTodos = [...displayTodos].sort((a,b)=>b.id-a.id)
+    const dpTodos = (todoStatus === 'all' ? [...todos] : todoStatus === 'active' ? ([...todos].filter((item => item.check !==true))) : ([...todos].filter((item => item.check !==false))))
+
+    const reversedTodos = [...dpTodos].sort((a,b)=>b.id-a.id)
 
     const todoNoCheckCount = (ts) => {
         let cnt = 0;
@@ -30,7 +31,6 @@ export const App: React.FC = () => {
         }
         return cnt
     }
-
     return (
         <div>
             <h1 className={styles.title}>todos</h1>
@@ -39,12 +39,10 @@ export const App: React.FC = () => {
                     onClick={() =>{
                         if(todoNoCheckCount(todos) > 0){
                             setTodos(todos.map((todo:Todo) => ({todoText: todo.todoText, check: true, id: todo.id})))
-                            setDisplayTodos(displayTodos.map((todo:Todo) => ({todoText: todo.todoText, check: true, id: todo.id})))
                             console.log(todos)
 
                         }else{
                             setTodos(todos.map((todo:Todo) =>({todoText: todo.todoText, check: !todo.check, id: todo.id})))
-                            setDisplayTodos(displayTodos.map((todo:Todo) => ({todoText: todo.todoText, check: !todo.check, id: todo.id})))
                             console.log(todos)
                         }
 
@@ -55,7 +53,6 @@ export const App: React.FC = () => {
                         if (event.keyCode === 13) {
                             setTodos(([...todos, newTodo]))
                             if(todoStatus !== 'completed'){
-                                setDisplayTodos(([...displayTodos, newTodo]))
                             }
                             setNewTodo({ todoText: '', check: false, id: 0 })
                         }
@@ -89,7 +86,6 @@ export const App: React.FC = () => {
                         className={styles.deleteBtn}
                         onClick={()=>{
                             setTodos(todos.filter(item => item.id !== todo.id))
-                            setDisplayTodos(displayTodos.filter(item => item.id !== todo.id))
                         }}>
                             ×
                         </button>
@@ -103,7 +99,6 @@ export const App: React.FC = () => {
                 className={todoStatus === 'all' ? styles.sttsActive : styles.notSttsActive}
                 onClick={()=>{
                     setTodoStatus('all')
-                    setDisplayTodos(todos)
                 }}>
                     All
                 </button>
@@ -111,7 +106,6 @@ export const App: React.FC = () => {
                 className={todoStatus === 'active' ? styles.sttsActive : styles.notSttsActive}
                 onClick={()=>{
                     setTodoStatus('active')
-                    setDisplayTodos(todos.filter(item => item.check !==true))
                 }}>
                     Active
                 </button>
@@ -119,14 +113,12 @@ export const App: React.FC = () => {
                 className={todoStatus === 'completed' ? styles.sttsActive : styles.notSttsActive}
                 onClick={()=>{
                     setTodoStatus('completed')
-                    setDisplayTodos(todos.filter(item => item.check !==false))
                 }}>
                     Completed
                 </button>
                 <button className={todos.length > todoNoCheckCount(todos) ? styles.visible : styles.hidden}
                 onClick={()=>{
                     setTodos(todos.filter(item => item.check !== true))
-                    setDisplayTodos(displayTodos.filter(item => item.check !== true))
                 }}>
                     Clear completed
                 </button>
