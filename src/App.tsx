@@ -15,8 +15,8 @@ export const App: React.FC = () => {
     const [newTodo, setNewTodo] = React.useState<Todo>({ todoText: '', check: false, id: 0 })
 
     const [displayTodos, setDisplayTodos] = React.useState<Todo[]>([])
+    const [listTodo, setListTodo] = React.useState<Todo>({ todoText: '', check: false, id: 0 })
 
-    const [todoCount, setTodoCount] = React.useState<number>(0)
     const [todoStatus, setTodoStatus] = React.useState<string>('all')
 
     const reversedTodos = [...displayTodos].sort((a,b)=>b.id-a.id)
@@ -40,10 +40,12 @@ export const App: React.FC = () => {
                         if(todoNoCheckCount(todos) > 0){
                             setTodos(todos.map((todo:Todo) => ({todoText: todo.todoText, check: true, id: todo.id})))
                             setDisplayTodos(displayTodos.map((todo:Todo) => ({todoText: todo.todoText, check: true, id: todo.id})))
+                            console.log(todos)
 
                         }else{
                             setTodos(todos.map((todo:Todo) =>({todoText: todo.todoText, check: !todo.check, id: todo.id})))
                             setDisplayTodos(displayTodos.map((todo:Todo) => ({todoText: todo.todoText, check: !todo.check, id: todo.id})))
+                            console.log(todos)
                         }
 
                     }}>✔️</button>
@@ -67,14 +69,21 @@ export const App: React.FC = () => {
                 {reversedTodos.map((todo: Todo) => (
                     <p key={todo.id}>
                         <input type='checkbox' 
-                        defaultChecked={todo.check}
+                        checked={todo.check}
                         onChange={(event) => {
-                            todo.check = event.target.checked
+                            setTodos([...todos.filter(item => (item.id !== todo.id)),{todoText:todo.todoText, check:event.target.checked, id:todo.id}])
+                            console.log(todos)
                             }} />
                         <input type='text'
-                        defaultValue={todo.todoText}
+                        value={todo.todoText}
+                        onKeyDown={(event) => {
+                            if (event.keyCode === 13) {
+                                setTodos([...todos.filter(item => (item.id !== todo.id)),listTodo])
+                            }
+                        }}
                         onChange={(event) => {
-                            todo.todoText = event.target.value
+                            todo.todoText=event.target.value
+                            setListTodo({todoText:event.target.value, check:todo.check, id:todo.id})
                         }} />
                         <button
                         className={styles.deleteBtn}
