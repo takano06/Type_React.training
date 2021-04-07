@@ -12,6 +12,8 @@
 }
 .input{
     font-size: large;
+    width:300px;
+    
 }
 .sttsActive{
     border-color: tomato;
@@ -25,10 +27,19 @@
 }
 
 .visible{
+    border-color: white;
     background-color: white;
     visibility: visible;
 }
 
 .hidden{
     visibility: hidden;
+}
+
+.list{
+    width:250px;
+}
+
+::placeholder{
+    color:whitesmoke;
 }

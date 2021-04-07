@@ -8,6 +8,15 @@ type Todo　= {
     check: boolean
     id: number
 }
+const todoNoCheckCount = (ts) => {
+    let cnt = 0;
+    for(let t of ts){
+        if(!t.check){
+            cnt++
+        }
+    }
+    return cnt
+}
 
 export const App: React.FC = () => {
 
@@ -21,16 +30,7 @@ export const App: React.FC = () => {
     const dpTodos = (todoStatus === 'all' ? [...todos] : todoStatus === 'active' ? ([...todos].filter((item => item.check !==true))) : ([...todos].filter((item => item.check !==false))))
 
     const reversedTodos = [...dpTodos].sort((a,b)=>b.id-a.id)
-
-    const todoNoCheckCount = (ts) => {
-        let cnt = 0;
-        for(let t of ts){
-            if(!t.check){
-                cnt++
-            }
-        }
-        return cnt
-    }
+    
     return (
         <div>
             <h1 className={styles.title}>todos</h1>
@@ -39,15 +39,13 @@ export const App: React.FC = () => {
                     onClick={() =>{
                         if(todoNoCheckCount(todos) > 0){
                             setTodos(todos.map((todo:Todo) => ({todoText: todo.todoText, check: true, id: todo.id})))
-                            console.log(todos)
-
                         }else{
                             setTodos(todos.map((todo:Todo) =>({todoText: todo.todoText, check: !todo.check, id: todo.id})))
-                            console.log(todos)
                         }
 
                     }}>✔️</button>
                     <input type='text' className={styles.input}
+                    placeholder='What needs to b done?'
                     value={newTodo.todoText}
                     onKeyDown={(event) => {
                         if (event.keyCode === 13) {
@@ -61,7 +59,6 @@ export const App: React.FC = () => {
                         setNewTodo({ todoText: event.target.value, check: false, id: todos.length })
                     }} />
                 </p>
-                    
             <ul className={styles.center}>
                 {reversedTodos.map((todo: Todo) => (
                     <p key={todo.id}>
@@ -69,9 +66,8 @@ export const App: React.FC = () => {
                         checked={todo.check}
                         onChange={(event) => {
                             setTodos([...todos.filter(item => (item.id !== todo.id)),{todoText:todo.todoText, check:event.target.checked, id:todo.id}])
-                            console.log(todos)
                             }} />
-                        <input type='text'
+                        <input type='text' className={styles.list}
                         value={todo.todoText}
                         onKeyDown={(event) => {
                             if (event.keyCode === 13) {
