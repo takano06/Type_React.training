@@ -5,7 +5,8 @@
   "author": "takano <kotone.takano@glucose.jp>",
   "license": "MIT",
   "scripts": {
-    "dev": "webpack serve"
+    "dev": "webpack serve",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
     "@babel/cli": "^7.13.14",
