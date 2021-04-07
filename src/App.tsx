@@ -21,23 +21,26 @@ export const App: React.FC = () => {
 
     const reversedTodos = [...displayTodos].sort((a,b)=>b.id-a.id)
 
-    const isTodosfalse = (ts) => {
+    const todoNoCheckCount = (ts) => {
+        let cnt = 0;
         for(let t of ts){
             if(!t.check){
-                return true
+                cnt++
             }
         }
-        return false
+        return cnt
     }
+
     return (
         <div>
             <h1 className={styles.title}>todos</h1>
                 <p className={styles.center}>
                     <button className={todos.length > 0 ? styles.visible :styles.hidden}
                     onClick={() =>{
-                        if(isTodosfalse(todos)){
+                        if(todoNoCheckCount(todos) > 0){
                             setTodos(todos.map((todo:Todo) => ({todoText: todo.todoText, check: true, id: todo.id})))
                             setDisplayTodos(displayTodos.map((todo:Todo) => ({todoText: todo.todoText, check: true, id: todo.id})))
+
                         }else{
                             setTodos(todos.map((todo:Todo) =>({todoText: todo.todoText, check: !todo.check, id: todo.id})))
                             setDisplayTodos(displayTodos.map((todo:Todo) => ({todoText: todo.todoText, check: !todo.check, id: todo.id})))
@@ -53,7 +56,6 @@ export const App: React.FC = () => {
                                 setDisplayTodos(([...displayTodos, newTodo]))
                             }
                             setNewTodo({ todoText: '', check: false, id: 0 })
-                            setTodoCount(todoCount + 1)
                         }
                     }}
                     onChange={(event) => {
@@ -68,11 +70,7 @@ export const App: React.FC = () => {
                         defaultChecked={todo.check}
                         onChange={(event) => {
                             todo.check = event.target.checked
-                            if (!todo.check) {
-                                setTodoCount(todoCount + 1)
-                            } else {
-                                setTodoCount(todoCount - 1)
-                            }}} />
+                            }} />
                         <input type='text'
                         defaultValue={todo.todoText}
                         onChange={(event) => {
@@ -83,9 +81,6 @@ export const App: React.FC = () => {
                         onClick={()=>{
                             setTodos(todos.filter(item => item.id !== todo.id))
                             setDisplayTodos(displayTodos.filter(item => item.id !== todo.id))
-                            if(!todo.check){
-                                setTodoCount(todoCount-1)
-                            }
                         }}>
                             ×
                         </button>
@@ -93,7 +88,7 @@ export const App: React.FC = () => {
                 ))}
             </ul>
             <p className={styles.center}>
-                {todoCount} item left  
+                {todoNoCheckCount(todos)} item left  
 
                 <button 
                 className={todoStatus === 'all' ? styles.sttsActive : styles.notSttsActive}
@@ -119,7 +114,7 @@ export const App: React.FC = () => {
                 }}>
                     Completed
                 </button>
-                <button className={todos.length > todoCount ? styles.visible : styles.hidden}
+                <button className={todos.length > todoNoCheckCount(todos) ? styles.visible : styles.hidden}
                 onClick={()=>{
                     setTodos(todos.filter(item => item.check !== true))
                     setDisplayTodos(displayTodos.filter(item => item.check !== true))
