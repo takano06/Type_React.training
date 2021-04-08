@@ -11,19 +11,26 @@
     text-align: center;
 }
 .input{
-    font-size: large;
-    width:300px;
-    
+    font-size:x-large;
+    width:370px;
+    height: 40px;
 }
-.sttsActive{
-    border-color: tomato;
-    background-color: white;
-    outline: 0;
+.statusLine{
+    text-align: center;
+    margin: 0 auto;
+    border: 2px solid gray;
+    width: 400px;
+
 }
-.notSttsActive{
-    border-color: white;
-    background-color: white;
-    outline: 0;
+.radioBtn{
+    display: none;
+}
+.statusLabel{
+    margin: 5px;
+}
+input[type='radio']:checked + label{
+    border: 2px solid tomato;
+    border-radius: 5px;
 }
 
 .visible{
@@ -37,9 +44,11 @@
 }
 
 .list{
-    width:250px;
+    width:330px;
+    font-size: large;
 }
 
 ::placeholder{
     color:whitesmoke;
 }
+
