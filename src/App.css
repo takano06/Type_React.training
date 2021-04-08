@@ -1,7 +1,3 @@
-.deleteBtn {
-    color:red;
-    background-color: white;
-}
 .title{
     color:bisque;
     text-align: center;
@@ -10,45 +6,9 @@
 .center{
     text-align: center;
 }
-.input{
-    font-size:x-large;
-    width:370px;
-    height: 40px;
-}
 .statusLine{
     text-align: center;
     margin: 0 auto;
     border: 2px solid gray;
     width: 400px;
-
 }
-.radioBtn{
-    display: none;
-}
-.statusLabel{
-    margin: 5px;
-}
-input[type='radio']:checked + label{
-    border: 2px solid tomato;
-    border-radius: 5px;
-}
-
-.visible{
-    border-color: white;
-    background-color: white;
-    visibility: visible;
-}
-
-.hidden{
-    visibility: hidden;
-}
-
-.list{
-    width:330px;
-    font-size: large;
-}
-
-::placeholder{
-    color:whitesmoke;
-}
-

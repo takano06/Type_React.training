@@ -1,0 +1,9 @@
+.visible{
+  border-color: white;
+  background-color: white;
+  visibility: visible;
+}
+
+.hidden{
+  visibility: hidden;
+}

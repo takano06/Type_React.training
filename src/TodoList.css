@@ -1,0 +1,12 @@
+
+.list{
+    width:330px;
+    font-size: large;
+}
+.deleteBtn {
+    color:red;
+    background-color: white;
+}
+.center{
+    text-align: center;
+}

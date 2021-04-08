@@ -1,0 +1,8 @@
+.input{
+    font-size:x-large;
+    width:370px;
+    height: 40px;
+}
+::placeholder{
+    color:whitesmoke;
+}

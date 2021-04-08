@@ -1,1 +1,4 @@
-@babel/preset-typescript @types/react @types/react-dom typescript
+Typescript =>
+ 型ジェネリクス
+ Optional property
+ Optional Chaining
