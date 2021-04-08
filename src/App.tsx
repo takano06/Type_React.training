@@ -73,6 +73,10 @@ export const App: React.FC = () => {
     setTodos(todos.filter((item) => item.check !== true))
   }
 
+  const handleStatusRadio = () => (event) => {
+    setTodoStatus(event.target.value)
+  }
+
   return (
     <div>
       <h1 className={styles.title}>todos</h1>
@@ -100,26 +104,44 @@ export const App: React.FC = () => {
           </p>
         ))}
       </ul>
-      <p className={styles.center}>
+      <p className={styles.statusLine}>
         {todoNoCheckCount(todos)} item left
-        <button
-          className={todoStatus === 'all' ? styles.sttsActive : styles.notSttsActive}
-          onClick={handleStatusButton('all')}
-        >
+          <input
+            type="radio"
+            className={styles.radioBtn}
+            name="status"
+            id="all"
+            value="all"
+            onChange={handleStatusRadio()}
+            checked={todoStatus === 'all'}
+          />{' '}
+        <label htmlFor="all" className={styles.statusLabel}>
           All
-        </button>
-        <button
-          className={todoStatus === 'active' ? styles.sttsActive : styles.notSttsActive}
-          onClick={handleStatusButton('active')}
-        >
+        </label>
+          <input
+            type="radio"
+            className={styles.radioBtn}
+            name="status"
+            id="active"
+            value="active"
+            onChange={handleStatusRadio()}
+            checked={todoStatus === 'active'}
+          />{' '}
+          <label htmlFor="active" className={styles.statusLabel}>
           Active
-        </button>
-        <button
-          className={todoStatus === 'completed' ? styles.sttsActive : styles.notSttsActive}
-          onClick={handleStatusButton('complete')}
-        >
+        </label>
+          <input
+            type="radio"
+            className={styles.radioBtn}
+            name="status"
+            id="completed"
+            value="completed"
+            onChange={handleStatusRadio()}
+            checked={todoStatus === 'completed'}
+          />
+          <label htmlFor="completed" className={styles.statusLabel}>
           Completed
-        </button>
+        </label>
         <button
           className={todos.length > todoNoCheckCount(todos) ? styles.visible : styles.hidden}
           onClick={handleClearButton()}
