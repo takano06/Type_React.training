@@ -5,14 +5,15 @@ import { Todo } from './types'
 import styles from './TodoList.css'
 
 type TodoListProps = {
-  todos: Todo[]
-  reversedTodos: Todo[]
-  onChange?: (todos: Todo[]) => void
+  todo: Todo
+  onCheckBoxChange?:(checked:boolean) => void
+  onTodoTextChange?:(todoText:string) => void
+  onDeleteButtonClick?: () => void
 }
 
-export const TodoList: React.FC<TodoListProps> = ({ todos, reversedTodos, onChange }) => {
+export const TodoList: React.FC<TodoListProps> = ({ todo, onCheckBoxChange, onTodoTextChange, onDeleteButtonClick }) => {
   const handleCheckboxChange = (todo) => (event) => {
-    onChange?.([
+    onCheckBoxChange?.([
       ...todos.filter((item) => item.id !== todo.id),
       { todoText: todo.todoText, check: event.target.checked, id: todo.id },
     ])

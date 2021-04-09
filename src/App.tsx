@@ -26,6 +26,7 @@ export const App: React.FC = () => {
 
   const reversedTodos = [...dpTodos].sort((a, b) => b.id - a.id)
 
+
   return (
     <div>
       <h1 className={styles.title}>todos</h1>
