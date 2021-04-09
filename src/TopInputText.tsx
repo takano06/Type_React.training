@@ -1,4 +1,5 @@
 import React from 'react'
+import PropsType from 'prop-types'
 
 import { Todo } from './types'
 
@@ -6,11 +7,10 @@ import styles from './TopInputText.css'
 
 type TopInputTextProps = {
   todos: Todo[]
-  todoStatus: string
   onChange?: (todos: Todo[]) => void
 }
 
-export const TopInputText: React.FC<TopInputTextProps> = ({ todos, todoStatus, onChange }) => {
+export const TopInputText: React.FC<TopInputTextProps> = ({ todos, onChange }) => {
   const [newTodo, setNewTodo] = React.useState<Todo>({ todoText: '', check: false, id: 0 })
 
   const handleTopInputChange = () => (event) => {
@@ -19,8 +19,6 @@ export const TopInputText: React.FC<TopInputTextProps> = ({ todos, todoStatus, o
   const handleKeyDown = () => (event) => {
     if (event.keyCode === 13) {
       onChange?.([...todos, newTodo])
-      if (todoStatus !== 'completed') {
-      }
       setNewTodo({ todoText: '', check: false, id: 0 })
     }
   }
@@ -34,4 +32,9 @@ export const TopInputText: React.FC<TopInputTextProps> = ({ todos, todoStatus, o
       onChange={handleTopInputChange()}
     />
   )
+}
+
+TopInputText.propTypes = {
+  todos: PropsType.array,
+  onChange: PropsType.func,
 }

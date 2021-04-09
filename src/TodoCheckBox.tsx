@@ -1,4 +1,5 @@
 import React from 'react'
+import PropsType from 'prop-types'
 
 import { Todo } from './types'
 
@@ -16,4 +17,10 @@ export const TodoCheckBox: React.FC<TodoCheckBoxProps> = ({ todos, todo, onChang
     ])
   }
   return <input type="checkbox" checked={todo.check} onChange={handleCheckboxChange(todo)} />
+}
+
+TodoCheckBox.propTypes = {
+  todos: PropsType.array,
+  todo: PropsType.any,
+  onChange: PropsType.func,
 }

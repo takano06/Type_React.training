@@ -1,4 +1,5 @@
 import React from 'react'
+import PropsType from 'prop-types'
 
 import styles from './StatusRadio.css'
 
@@ -22,4 +23,10 @@ export const StatusRadio: React.FC<StatusRadioProps> = ({ todoStatus, value, onC
       checked={todoStatus === value}
     />
   )
+}
+
+StatusRadio.propTypes = {
+  todoStatus: PropsType.string,
+  value: PropsType.string,
+  onChange: PropsType.func,
 }

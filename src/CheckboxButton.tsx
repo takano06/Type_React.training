@@ -1,4 +1,5 @@
 import React from 'react'
+import PropsType from 'prop-types'
 
 import { Todo } from './types'
 import { todoNoCheckCount } from './utils'
@@ -24,4 +25,9 @@ export const CheckboxButton: React.FC<CheckboxButtonProps> = ({ todos, onChange 
       ✔️
     </button>
   )
+}
+
+CheckboxButton.propTypes = {
+  todos: PropsType.array,
+  onChange: PropsType.func,
 }

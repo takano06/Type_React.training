@@ -1,4 +1,5 @@
 import React from 'react'
+import PropsType from 'prop-types'
 
 import { Todo } from './types'
 
@@ -19,4 +20,10 @@ export const TodoDeleteButton: React.FC<TodoDeleteButtonProps> = ({ todos, todo,
       ×
     </button>
   )
+}
+
+TodoDeleteButton.propTypes = {
+  todos: PropsType.array,
+  todo: PropsType.any,
+  onChange: PropsType.func,
 }

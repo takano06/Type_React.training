@@ -1,5 +1,4 @@
 import React from 'react'
-import { ImportsNotUsedAsValues } from 'typescript'
 
 import styles from './App.css'
 
@@ -26,13 +25,12 @@ export const App: React.FC = () => {
 
   const reversedTodos = [...dpTodos].sort((a, b) => b.id - a.id)
 
-
   return (
     <div>
       <h1 className={styles.title}>todos</h1>
       <p className={styles.center}>
         <CheckboxButton todos={todos} onChange={setTodos} />
-        <TopInputText todos={todos} todoStatus={todoStatus} onChange={setTodos} />
+        <TopInputText todos={todos} onChange={setTodos} />
       </p>
       <TodoList todos={todos} reversedTodos={reversedTodos} onChange={setTodos} />
       <p className={styles.statusLine}>

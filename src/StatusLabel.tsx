@@ -1,4 +1,5 @@
 import React from 'react'
+import PropsType from 'prop-types'
 
 import styles from './StatusLabel.css'
 
@@ -12,4 +13,8 @@ export const StatusLabel: React.FC<StatusLabelProps> = ({ value }) => {
       {value}
     </label>
   )
+}
+
+StatusLabel.propTypes = {
+  value: PropsType.string,
 }

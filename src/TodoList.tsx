@@ -1,19 +1,19 @@
 import React from 'react'
+import PropsType from 'prop-types'
 
 import { Todo } from './types'
 
 import styles from './TodoList.css'
 
 type TodoListProps = {
-  todo: Todo
-  onCheckBoxChange?:(checked:boolean) => void
-  onTodoTextChange?:(todoText:string) => void
-  onDeleteButtonClick?: () => void
+  todos: Todo[]
+  reversedTodos: Todo[]
+  onChange?: (todos: Todo[]) => void
 }
 
-export const TodoList: React.FC<TodoListProps> = ({ todo, onCheckBoxChange, onTodoTextChange, onDeleteButtonClick }) => {
+export const TodoList: React.FC<TodoListProps> = ({ todos, reversedTodos, onChange }) => {
   const handleCheckboxChange = (todo) => (event) => {
-    onCheckBoxChange?.([
+    onChange?.([
       ...todos.filter((item) => item.id !== todo.id),
       { todoText: todo.todoText, check: event.target.checked, id: todo.id },
     ])
@@ -41,4 +41,10 @@ export const TodoList: React.FC<TodoListProps> = ({ todo, onCheckBoxChange, onTo
       ))}
     </ul>
   )
+}
+
+TodoList.propTypes = {
+  todos: PropsType.array,
+  reversedTodos: PropsType.array,
+  onChange: PropsType.func,
 }

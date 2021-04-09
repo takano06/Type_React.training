@@ -1,4 +1,5 @@
 import React from 'react'
+import PropsType from 'prop-types'
 
 import { Todo } from './types'
 import { todoNoCheckCount } from './utils'
@@ -22,4 +23,9 @@ export const ClearCompletedButton: React.FC<ClearCompletedButtonProps> = ({ todo
       Clear completed
     </button>
   )
+}
+
+ClearCompletedButton.propTypes = {
+  todos: PropsType.array,
+  onChange: PropsType.func,
 }

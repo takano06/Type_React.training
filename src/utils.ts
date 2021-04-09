@@ -1,6 +1,8 @@
-export const todoNoCheckCount = (ts) => {
+import { Todo } from './types'
+
+export const todoNoCheckCount = (ts: Todo[]) => {
   let cnt = 0
-  for (let t of ts) {
+  for (const t of ts) {
     if (!t.check) {
       cnt++
     }
